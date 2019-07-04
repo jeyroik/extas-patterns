@@ -1,0 +1,13 @@
+{
+  "name": "jeyroik/extas-patterns",
+  "description": "Extas patterns package",
+  "require": {
+    "jeyroik/extas-foundation":"*",
+    "jeyroik/extas-installer":"*"
+  },
+  "autoload": {
+    "psr-4": {
+      "extas\\": "src/"
+    }
+  }
+}

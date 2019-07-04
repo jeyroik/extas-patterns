@@ -1,0 +1,83 @@
+{
+  "name": "extas.patterns",
+  "package_classes": [
+    {
+      "interface": "extas\\interfaces\\patterns\\IPatternRepository",
+      "class": "extas\\components\\patterns\\PatternRepository"
+    },
+    {
+      "interface": "extas\\interfaces\\patterns\\IPattern",
+      "class": "extas\\components\\patterns\\Pattern"
+    }
+  ],
+  "stages": [
+    {
+      "name": "extas.pattern.init",
+      "description": "extas pattern initialized",
+      "input": {
+        "pattern": {
+          "type": "extas\\interfaces\\patterns\\IPattern",
+          "description": "Current pattern instance"
+        }
+      },
+      "output": {
+        "void": {
+          "type": "void",
+          "description": "Nothing to return is required"
+        }
+      }
+    },
+    {
+      "name": "extas.pattern.import",
+      "description": "Data is importing into pattern",
+      "input": {
+        "data": {
+          "type": "array",
+          "description": "Importing data"
+        },
+        "pattern": {
+          "type": "extas\\interfaces\\patterns\\IPattern",
+          "description": "Current pattern instance"
+        }
+      },
+      "output": {
+        "data": {
+          "type": "array",
+          "description": "Data for import"
+        }
+      }
+    }
+  ],
+  "plugins": [
+    {
+      "class": "extas\\components\\plugins\\patterns\\PatternPluginInstall",
+      "stage": "extas.install"
+    }
+  ],
+  "extensions": [
+    {
+      "class": "extas\\components\\extensions\\patterns\\PatternExtensionBaseV2",
+      "interface": "extas\\interfaces\\patterns\\IPatternBaseV2",
+      "subject": "extas.pattern.base.v2",
+      "methods": [
+        "getData",
+        "getAction",
+        "getToken",
+        "getVersion"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "name": "extas.pattern.base.v2",
+      "description": "Base pattern upon protocol extas.form.v2",
+      "version": "2.0",
+      "schema": {
+        "version": "<string>",
+        "token": "<string>",
+        "action": "<string>",
+        "data": "<object>"
+      }
+    }
+  ]
+}
