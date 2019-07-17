@@ -25,32 +25,10 @@ $data = [
 ];
 ``` 
 
-В пакет extas'a добавляем паттерн:
+## Создаём расширение
 
-```json
-{
-  "patterns": [
-    {
-      "name": "pattern.levels",
-      "description": "Example multi-level pattern",
-      "version": "1.0",
-      "schema": {
-        "level1": {
-          "level2": {
-            "level3": "<string>"
-          },
-          "level2.1": "<string>"
-        },
-        "level1.1": "<string>"
-      }
-    }
-  ]
-}
-```
+### Сначала интерфейс
 
-Создаём расширение:
-
-Сначала интерфейс
 ```php
 namespace my\extas\interafces\extensions;
 
@@ -64,7 +42,7 @@ interface ILevelsPatternExtension
 }
 ```
 
-Теперь само расширение
+### Теперь само расширение
 
 ```php
 namespace my\extas\components\extensions;
@@ -106,7 +84,9 @@ class LevelsPatternExtension extends Extension implements ILevelsPatternExtensio
 }
 ```
 
-Добавляем расширение в пакет extas'a:
+## Добавляем расширение в пакет extas'a:
+
+`subject` = `extas.pattern.<pattern.name>`
 
 ```json
 {
@@ -114,7 +94,7 @@ class LevelsPatternExtension extends Extension implements ILevelsPatternExtensio
     {
       "interface": "my\\extas\\interfaces\\extensions\\ILevelsPatternExtension",
       "class": "my\\extas\\components\\extensions\\ILevelsPatternExtension",
-      "subject": "pattern.levels",
+      "subject": "extas.pattern.levels",
       "methods": [
         "getLevel1",
         "getLevel1_1",
@@ -127,16 +107,14 @@ class LevelsPatternExtension extends Extension implements ILevelsPatternExtensio
 }
 ```
 
-Устанавливаем паттерн и расширение:
+## Устанавливаем паттерн и расширение:
 
 `/vendor/bin/extas i -p extas.json -s 0 -r 1`
 
-Применяем паттерн:
+## Применяем паттерн
 
 ```php
-use \extas\components\SystemConatiner;
-use \extas\interafces\patterns\IPattern;
-use \extas\interafces\patterns\IPatternRepository;
+use \extas\components\patterns\Pattern;
 
 $data = [
     'level1' => [
@@ -148,14 +126,6 @@ $data = [
     'level1.1' => 'break'
 ];
 
-$patternRepo = SystemContainer::getItem(IPatternRepository::class);
-$pattern = $patternRepo->one([IPattern::FIELD__NAME => 'pattern.levels']);
-
-$pattern->import($data);
-if ($pattern->isValid()) {
-    /**
-     * @var $pattern \my\extas\interafces\extensions\ILevelsPatternExtension
-     */
-    echo $pattern->getLevel3(); // 'enough'
-}
+$pattern = new Pattern([Pattern::FIELD__NAME => 'levels', Pattern::FIELD__SCHEMA => $data]);
+echo $pattern->getLevel3(); // 'enough'
 ```

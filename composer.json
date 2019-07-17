@@ -2,8 +2,8 @@
   "name": "jeyroik/extas-patterns",
   "description": "Extas patterns package",
   "require": {
-    "jeyroik/extas-foundation":"*",
-    "jeyroik/extas-installer":"*"
+    "jeyroik/extas-foundation": "*",
+    "jeyroik/extas-base": "*"
   },
   "autoload": {
     "psr-4": {
