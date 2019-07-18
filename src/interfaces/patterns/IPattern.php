@@ -29,4 +29,9 @@ interface IPattern extends IItem, IHasName, IHasDescription, IHasVersion
      * @return $this
      */
     public function setSchema($schema);
+
+    /**
+     * @return bool
+     */
+    public function isValid(): bool;
 }

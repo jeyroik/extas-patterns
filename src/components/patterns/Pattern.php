@@ -40,6 +40,20 @@ class Pattern extends Item implements IPattern
     }
 
     /**
+     * @return bool
+     */
+    public function isValid(): bool
+    {
+        $valid = true;
+        $stage = $this->getSubjectForExtension() . '.validation';
+        foreach ($this->getPluginsByStage($stage) as $plugin) {
+            $plugin($this, $valid);
+        }
+
+        return $valid;
+    }
+
+    /**
      * @return string
      */
     protected function getSubjectForExtension(): string
