@@ -14,9 +14,9 @@ use extas\interfaces\IItem;
  */
 interface IPattern extends IItem, IHasName, IHasDescription, IHasVersion
 {
-    const SUBJECT = 'extas.pattern';
+    public const SUBJECT = 'extas.pattern';
 
-    const FIELD__SCHEMA = 'schema';
+    public const FIELD__SCHEMA = 'schema';
 
     /**
      * @return mixed
